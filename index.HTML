@@ -1,0 +1,1125 @@
+<!DOCTYPE html>
+<HTML>
+    <head>
+        <body>
+            <title>SYBCA PRACTICAL</title>
+            <div>C++ slip solution</div>
+            <h1>
+            <div>slip no.1Q.(A)</div></h1>
+            <h6>
+                
+                #include iostream </br>
+                #include conio.h </br>
+                
+                inline int max(int a, int b) {</br>
+                    return (a > b) ? a : b;</br>
+                }</br>
+                
+                inline int min(int a, int b) {</br>
+                    return (a < b) ? a : b;</br>
+                }</br>
+                
+                int main() {</br>
+                    clrscr(); // clear the screen</br>
+                    int num1, num2;</br>
+                    cout << "Enter two integer numbers: ";</br>
+                    cin >> num1 >> num2;</br>
+                    cout << "Maximum of " << num1 << " and " << num2 << " is: " </br>
+                    << max(num1, num2) << endl;</br>
+                    cout << "Minimum of " << num1 << " and " << num2 << " is: " </br>
+                    << min(num1, num2) << endl;</br>
+                    getch(); // wait for a key press before closing</br>
+                    return 0;</br>
+
+                }</br>
+            
+            </h4>
+
+            <h1>slip no 1.Q1(B)</h1>
+            <h6>
+                #include iostream<iostream.h></br>
+                #include conio.h<conio.h></br>
+                #include stdio.h<stdio.h></br>
+                #include string.h </br>
+                
+                class MyFile {</br>
+                    FILE *fp;</br>
+                    char filename[50];</br>
+                public:</br>
+                    MyFile() {</br>
+                        fp = NULL;</br>
+                        strcpy(filename, "");</br>
+                    }</br>
+                    void accept() {</br>
+                        cout << "Enter filename: ";</br>
+                        gets(filename);</br>
+                    }</br>
+                    void display() {</br>
+                        if(fp != NULL) {</br>
+                            char ch;</br>
+                            rewind(fp);</br>
+                            while((ch = fgetc(fp)) != EOF) {</br>
+                                putchar(ch);</br>
+                            }</br>
+                            cout << endl;</br>
+                        }</br>
+                        else {</br>
+                            cout << "File not open." << endl;</br>
+                        }</br>
+                    }</br>
+                    MyFile operator+(MyFile &f2) {</br>
+                        MyFile f3;</br>
+                        if(fp != NULL && f2.fp != NULL) {</br>
+                            strcat(f3.filename, filename);</br>
+                            strcat(f3.filename, "-");</br>
+                            strcat(f3.filename, f2.filename);</br>
+                            f3.fp = fopen(f3.filename, "w");</br>
+                            char ch;</br>
+                            rewind(fp);</br>
+                            while((ch = fgetc(fp)) != EOF) {</br>
+                                fputc(ch, f3.fp);</br>
+                            }</br>
+                            rewind(f2.fp);</br>
+                            while((ch = fgetc(f2.fp)) != EOF) {</br>
+                                fputc(ch, f3.fp);</br>
+                            }</br>
+                            fclose(f3.fp);</br>
+                            f3.fp = fopen(f3.filename, "r");</br>
+                        }</br>
+                        return f3;</br>
+                    }</br>
+                    void operator++() {</br>
+                        if(fp != NULL) {</br>
+                            char ch;</br>
+                            bool upper = true;</br>
+                            rewind(fp);</br>
+                            while((ch = fgetc(fp)) != EOF) {</br>
+                                if(upper) {</br>
+                                    ch = toupper(ch);</br>
+                                }</br>
+                                else {</br>
+                                    ch = tolower(ch);</br>
+                                }</br>
+                                upper = !upper;</br>
+                                fputc(ch, fp);</br>
+                            }</br>
+                            rewind(fp);</br>
+                        }</br>
+                    }</br>
+                    ~MyFile() {</br>
+                        if(fp != NULL) {</br>
+                            fclose(fp);</br>
+                        }</br>
+                    }</br>
+                };</br>
+                
+                int main() {</br>
+                    clrscr(); // clear the screen</br>
+                    MyFile f1, f2, f3;</br>
+                    cout << "File 1:" << endl;</br>
+                    f1.accept();</br>
+                    f1.fp = fopen(f1.filename, "r");</br>
+                    cout << "Contents of " << f1.filename << ":" << endl;</br>
+                    f1.display();</br>
+                    cout << "File 2:" << endl;</br>
+                    f2.accept();</br>
+                    f2.fp = fopen(f2.filename, "r");</br>
+                    cout << "Contents of " << f2.filename << ":" << endl;</br>
+                    f2.display();</br>
+                    cout << "Concatenating " << f1.filename << " and " << f2.</br>filename << " to " << f3.filename << ":" << endl;</br>
+                    f3 = f1 + f2;</br>
+                    f3.display();</br>
+                    cout << "Changing case of alternate characters in " << f3.</br>filename << ":" <<h4 endl;</br>
+                    ++f3;</br>
+                    f3.display();</br>
+                    getch(); // wait for a key press before closing</br>
+                    return 0;</br>
+                }</br>
+            </h4>
+
+<h1>slip no 2.Q.1(A)</h1>
+<h4>
+    #include iostream<iostream.h> </br>
+    #include conio.h<conio.h></br>
+    #include math.h<math.h></br>
+    
+    const float PI = 3.14159265;</br>
+    
+    class Shape {</br>
+    public:</br>
+        float volume;</br>
+    };</br>
+    
+    class Cylinder : public Shape {</br>
+    public:</br>
+        void calculateVolume(float radius, float height) {</br>
+            volume = PI * pow(radius, 2) * height;</br>
+        }</br>
+    };</br>
+    
+    class Cone : public Shape {</br>
+    public:</br>
+        void calculateVolume(float radius, float height) {</br>
+            volume = (PI * pow(radius, 2) * height) / 3;</br>
+        }</br>
+    };</br>
+    
+    class Sphere : public Shape {</br>
+    public:</br>
+        void calculateVolume(float radius) {</br>
+            volume = (4 * PI * pow(radius, 3)) / 3;</br>
+        }</br>
+    };</br>
+    
+    int main() {</br>
+        clrscr(); // clear the screen</br>
+        Cylinder c;</br>
+        Cone cone;</br>
+        Sphere s;</br>
+        float r, h;</br>
+        cout << "Enter radius and height of cylinder: ";</br>
+        cin >> r >> h;</br>
+        c.calculateVolume(r, h);</br>
+        cout << "Volume of cylinder: " << c.volume << endl;</br>
+        cout << "Enter radius and height of cone: ";</br>
+        cin >> r >> h;</br>
+        cone.calculateVolume(r, h);</br>
+        cout << "Volume of cone: " << cone.volume << endl;</br>
+        cout << "Enter radius of sphere: ";</br>
+        cin >> r;</br>
+        s.calculateVolume(r);</br>
+        cout << "Volume of sphere: " << s.volume << endl;</br>
+        getch(); // wait for a key press before closing</br>
+        return 0;</br>
+    }</br>
+
+    <h2>slip no 2.Q1(B)</h2>
+<h5>
+    #include  iostream.h></br>
+    #include  fstream.h></br>
+    #include  conio.h></br>
+    #include  string.h></br>
+    
+    class Movie {</br>
+    public:</br>
+        char M_Name[50];</br>
+        int Release_Year;</br>
+        char Director_Name[50];</br>
+        float Budget;</br>
+    
+        void acceptDetails() {</br>
+            cout << "Enter movie name: ";</br>
+            cin >> M_Name;</br>
+            cout << "Enter release year: ";</br>
+            cin >> Release_Year;</br>
+            cout << "Enter director name: ";</br>
+            cin >> Director_Name;</br>
+            cout << "Enter budget: ";</br>
+            cin >> Budget;</br>
+        }</br>
+    
+        void displayDetails() {</br>
+            cout << "Movie Name: " << M_Name << endl;</br>
+            cout << "Release Year: " << Release_Year << endl;</br>
+            cout << "Director Name: " << Director_Name << endl;</br>
+            cout << "Budget: " << Budget << endl;</br>
+        }</br>
+    };</br>
+    
+    int main() {</br>
+        clrscr(); // clear the screen</br>
+        Movie movie;</br>
+        ofstream file("Movie.txt", ios::app | ios::binary);</br>
+        if (!file) {</br>
+            cout << "Error opening file!\n";</br>
+            getch();</br>
+            return 0;</br>
+        }</br>
+        int n;</br>
+        cout << "Enter number of movies to add to file: ";</br>
+        cin >> n;</br>
+        for (int i = 0; i < n; i++) {</br>
+            movie.acceptDetails();</br>
+            file.write((char*)&movie, sizeof(Movie));</br>
+        }</br>
+        file.close();</br>
+        ifstream inFile("Movie.txt", ios::binary);</br>
+        if (!inFile) {</br>
+            cout << "Error opening file!\n";</br>
+            getch();</br>
+            return 0;</br>
+        }</br>
+        inFile.seekg(0, ios::end);</br>
+        int fileSize = inFile.tellg();</br>
+        int numObjects = fileSize / sizeof(Movie);</br>
+        inFile.seekg(0, ios::beg);</br>
+        for (int i = 0; i < numObjects; i++) {</br>
+            inFile.read((char*)&movie, sizeof(Movie));</br>
+            movie.displayDetails();</br>
+            cout << endl;</br>
+        }</br>
+        cout << "Number of objects in file: " << numObjects << endl;</br>
+        inFile.close();</br>
+        getch(); // wait for a key press before closing</br>
+        return 0;</br>
+    }</br>
+    </h5>
+
+    <h2>slip no 3.Q1.(A)</h2>
+    <h5>
+        #include  iostream.h></br>
+        #include  conio.h></br>
+        
+        void swap(int& num1, int& num2) {</br>
+            int temp = num1;</br>
+            num1 = num2;</br>
+            num2 = temp;</br>
+        }</br>
+        
+        int main() {</br>
+            clrscr(); // clear the screen</br>
+            int num1, num2;</br>
+            cout << "Enter two numbers: ";</br>
+            cin >> num1 >> num2;</br>
+            cout << "Before swapping: num1 = " << num1 << ", num2 = " << num2 << endl;</br>
+            swap(num1, num2);</br>
+            cout << "After swapping: num1 = " << num1 << ", num2 = " << num2 << endl;</br>
+            getch(); // wait for a key press before closing</br>
+            return 0;</br>
+        }</br>
+        </h5>
+
+        <h2>slip no 3.Q.1(B)</h2>
+        <h4>
+            #include  iostream.h></br>
+            #include  fstream.h></br>
+            #include  stdlib.h></br>
+            
+            int main(int argc, char* argv[]) {</br>
+                int n = atoi(argv[1]); // convert first command line argument to integer</br>
+                int num;</br>
+                ofstream evenFile("Even.txt");</br>
+                ofstream oddFile("Odd.txt");</br>
+                if (!evenFile || !oddFile) {</br>
+                    cerr << "Error: Unable to open file." << endl;</br>
+                    return 1;</br>
+                }</br>
+                cout << "Enter " << n << " numbers: ";</br>
+                for (int i = 0; i < n; i++) {</br></n>
+                    cin >> num;</br>
+                    if (num % 2 == 0) {</br>
+                        evenFile << num << endl;</br>
+                    } else {</br>
+                        oddFile << num << endl;</br>
+                    }</br>
+                }</br>
+                evenFile.close();</br>
+                oddFile.close();</br>
+                cout << "Even numbers are stored in file 'Even.txt'." << endl;</br>
+                cout << "Odd numbers are stored in file 'Odd.txt'." << endl;</br>
+                return 0;</br>
+            }</br>
+            </h4>
+        <h2>slip no 4.Q1.(A)</h2>
+        <h5>
+            #include  iostream.h></br>
+            #include  string.h></br>
+            #include  conio.h></br>
+            
+            class Worker {</br>
+                private:</br>
+                    char name[50];</br>
+                    int hoursWorked;</br>
+                    float payRate;</br>
+            
+                public:</br>
+                    Worker(char* name, int hoursWorked, float payRate = 10.0) {</br>
+                        strcpy(this->name, name);</br>
+                        this->hoursWorked = hoursWorked;</br>
+                        this->payRate = payRate;</br>
+                    }</br>
+            
+                    float getSalary() {</br>
+                        float salary = hoursWorked * payRate;</br>
+                        return salary;</br>
+                    }</br>
+            
+                    void display() {</br>
+                        cout << "Worker name: " << name << endl;</br>
+                        cout << "Hours worked: " << hoursWorked << endl;</br>
+                        cout << "Pay rate: " << payRate << endl;</br>
+                        cout << "Salary: " << getSalary() << endl;</br>
+                    }</br>
+            };</br>
+            
+            int main() {</br>
+                clrscr(); // clear the screen</br>
+                char name[50];</br>
+                int hoursWorked;</br>
+                float payRate;</br>
+            
+                cout << "Enter worker name: ";</br>
+                cin.getline(name, 50);</br>
+            
+                cout << "Enter number of hours worked: ";</br>
+                cin >> hoursWorked;</br>
+            
+                cout << "Enter pay rate (or press enter for default value 10.0): ";</br>
+                char payRateStr[10];</br>
+                cin.getline(payRateStr, 10);</br>
+                if (strlen(payRateStr) == 0) {</br>
+                    payRate = 10.0;</br>
+                } else {</br>
+                    payRate = atof(payRateStr);</br>
+                }</br>
+            
+                Worker worker(name, hoursWorked, payRate);</br>
+                worker.display();</br>
+            
+                getch(); // wait for a key press before closing</br>
+                return 0;</br>
+            }</br>
+            </h5>
+
+            <h2>slip no 4.Q1(B)</h2>
+            <h5>
+                #include  iostream.h></br>
+                #include  conio.h></br>
+                #include  string.h></br>
+                
+                const int MAX_EMPLOYEES = 100; // maximum number of employees</br>
+                
+                class Employee {</br>
+                    protected:</br>
+                        int empCode;</br>
+                        char name[50];</br>
+                        float salary;</br>
+                
+                    public:</br>
+                        Employee(int empCode, char* name, float salary) {</br>
+                            this->empCode = empCode;</br>
+                            strcpy(this->name, name);</br>
+                            this->salary = salary;</br>
+                        }</br>
+                
+                        virtual float calculateSalary() = 0; // pure virtual function</br>
+                
+                        virtual void display() {</br>
+                            cout << "Emp code: " << empCode << endl;</br>
+                            cout << "Name: " << name << endl;</br>
+                            cout << "Salary: " << salary << endl;</br>
+                        }</br>
+                };</br>
+                
+                class Fulltime : public Employee {</br>
+                    private:</br>
+                        float dailyWage;</br>
+                        int numDays;</br>
+                
+                    public:</br>
+                        Fulltime(int empCode, char* name, float salary, float dailyWage, int numDays)</br>
+                            : Employee(empCode, name, salary) {</br>
+                            this->dailyWage = dailyWage;</br>
+                            this->numDays = numDays;</br>
+                        }</br>
+                
+                        float calculateSalary() {</br>
+                            float salary = salary + (dailyWage * numDays);</br>
+                            return salary;</br>
+                        }</br>
+                
+                        void display() {</br>
+                            Employee::display();</br>
+                            cout << "Daily wage: " << dailyWage << endl;</br>
+                            cout << "Number of days: " << numDays << endl;</br>
+                        }</br>
+                };</br>
+                
+                class Parttime : public Employee {</br>
+                    private:</br>
+                        float hourlyWage;</br>
+                        int numHours;</br>
+                
+                    public:</br>
+                        Parttime(int empCode, char* name, float salary, float hourlyWage, int numHours)</br>
+                            : Employee(empCode, name, salary) {</br>
+                            this->hourlyWage = hourlyWage;</br>
+                            this->numHours = numHours;</br>
+                        }</br>
+                
+                        float calculateSalary() {</br>
+                            float salary = salary + (hourlyWage * numHours);</br>
+                            return salary;</br>
+                        }</br>
+                
+                        void display() {</br>
+                            Employee::display();</br>
+                            cout << "Hourly wage: " << hourlyWage << endl;</br>
+                            cout << "Number of hours: " << numHours << endl;</br>
+                        }</br>
+                };</br>
+                
+                int main() {</br>
+                    clrscr(); // clear the screen</br>
+                    Employee* employees[MAX_EMPLOYEES];</br>
+                    int numEmployees = 0;</br>
+                
+                    while (1) {</br>
+                        cout << "MENU" << endl;</br>
+                        cout << "1. Add an employee" << endl;</br>
+                        cout << "2. Display all employees" << endl;</br>
+                        cout << "3. Display employee with max salary (Fulltime)" << endl;</br>
+                        cout << "4. Display employee with max salary (Parttime)" << endl;</br>
+                        cout << "5. Exit" << endl;</br>
+                        cout << "Enter your choice: ";</br>
+                        int choice;</br>
+                        cin >> choice;</br>
+                
+                        switch (choice) {</br>
+                            case 1: { // add an employee</br>
+                                cout << "Enter emp code: ";</br>
+                                int empCode;</br>
+                                cin >> empCode;</br>
+                
+                                cout << "Enter name: ";</br>
+                                char name[50];</br>
+                                cin.ignore();</br>
+                                cin.getline(name, 50);</br>
+                
+                                cout << "Enter salary: ";</br>
+                                float salary;</br>
+                               
+                </h5>
+
+
+            <h2>slip no 5.Q1(A)</h2>
+            <h5>
+                #include  iostream></br>
+                using namespace std;</br>
+                
+                // claas declaration</br>
+                class point {</br>
+                private:</br>
+                    int X, Y;</br>
+                
+                public:</br>
+                    //defualt constructor</br>
+                    point()</br>
+                    {</br>
+                        X = 0;</br>
+                        Y = 0;</br>
+                    }</br>
+                
+                    //setter function</br>
+                    void setPoint(int a, int b)</br>
+                    {</br>
+                        X = a;</br>
+                        Y = b;</br>
+                    }</br>
+                    //getter functions</br>
+                    int getX(void)</br>
+                    {</br>
+                        return X;</br>
+                    }</br>
+                    int getY(void)</br>
+                    {</br>
+                        return Y;</br>
+                    }</br>
+                };</br>
+                
+                //Main function</br>
+                int main()</br>
+                {</br>
+                    //object</br>
+                    point p1, p2;</br>
+                
+                    //set points</br>
+                    p1.setPoint(5, 10);</br>
+                    p2.setPoint(50, 100);</br>
+                
+                    //get points</br>
+                    cout << "p1: " << p1.getX() << " , " << p1.getY() << endl;</br>
+                    cout << "p1: " << p2.getX() << " , " << p2.getY() << endl;</br>
+                
+                    return 0;</br>
+                }</br>
+            </h5>
+
+            <h2>slip no 5.Q1(B)</h2>
+             <h5>
+                #include  < iostream></br>
+                #include < cmath></br>
+                
+                using namespace std;</br>
+                
+                class Shape {</br>
+                public:</br>
+                    virtual double area() = 0; // pure virtual function</br>
+                };</br>
+                
+                class Circle : public Shape {</br>
+                private:</br>
+                    double radius;</br>
+                public:</br>
+                    Circle(double r) {</br>
+                        radius = r;</br>
+                    }</br>
+                    double area() {</br>
+                        return M_PI * radius * radius;</br>
+                    }</br>
+                };</br>
+                
+                class Sphere : public Shape {</br>
+                private:</br>
+                    double radius;</br>
+                public:</br>
+                    Sphere(double r) {</br>
+                        radius = r;</br>
+                    }</br>
+                    double area() {</br>
+                        return 4 * M_PI * radius * radius;</br>
+                    }</br>
+                };</br>
+                
+                class Cylinder : public Shape {</br>
+                private:</br>
+                    double radius, height;</br>
+                public:</br>
+                    Cylinder(double r, double h) {</br>
+                        radius = r;</br>
+                        height = h;</br>
+                    }</br>
+                    double area() {</br>
+                        return 2 * M_PI * radius * height + 2 * M_PI * radius * radius;</br>
+                    }</br>
+                };</br>
+                
+                int main() {</br>
+                    Circle c(5);</br>
+                    Sphere s(5);</br>
+                    Cylinder cy(5, 10);</br>
+                    cout << "Area of Circle: " << c.area() << endl;</br>
+                    cout << "Area of Sphere: " << s.area() << endl;</br>
+                    cout << "Area of Cylinder: " << cy.area() << endl;</br>
+                    return 0;</br>
+                }</br>
+                </h5>
+                <h2>slip no 6.Q1(A)</h2>
+                <h5>
+                    #include < iostream></br>
+                    #include < conio.h></br>
+                    
+                    using namespace std;</br>
+                    
+                    class Rectangle;</br>
+                    
+                    class Square{</br>
+                        private:</br>
+                            float side;</br>
+                        public:</br>
+                            void set_side(float s){</br>
+                                side = s;</br>
+                            }</br>
+                            friend void compare_area(Square s, Rectangle r);</br>
+                    };</br>
+                    
+                    class Rectangle{</br>
+                        private:</br>
+                            float length, breadth;</br>
+                        public:</br>
+                            void set_dimensions(float l, float b){</br>
+                                length = l;</br>
+                                breadth = b;</br>
+                            }</br>
+                            float area(){</br>
+                                return length * breadth;</br>
+                            }</br>
+                            friend void compare_area(Square s, Rectangle r);</br>
+                    };</br>
+                    
+                    void compare_area(Square s, Rectangle r){</br>
+                        float square_area = s.side * s.side;</br>
+                        float rect_area = r.area();</br>
+                        if(square_area > rect_area){</br>
+                            cout << "Area of Square is greater than Area of Rectangle" << endl;</br>
+                        } else if(square_area == rect_area){</br>
+                            cout << "Area of Square and Rectangle are equal" << endl;</br>
+                        } else{</br>
+                            cout << "Area of Rectangle is greater than Area of Square" << endl;</br>
+                        }</br>
+                    }</br>
+                    
+                    int main(){</br>
+                        Square sq;</br>
+                        Rectangle rect;</br>
+                    
+                        sq.set_side(5);</br>
+                        rect.set_dimensions(5, 10);</br>
+                    
+                        compare_area(sq, rect);</br>
+                    
+                        getch();</br>
+                        return 0;</br>
+                    }</br>
+                </h5>
+
+                <h2>slip no 6.Q1(B)</h2>
+                <h5>
+                    #include < iostream></br>
+                    #include < iomanip></br>
+                    
+                    using namespace std;</br>
+                    
+                    class Matrix {</br>
+                    private:</br>
+                        int rows;</br>
+                        int cols;</br>
+                        int **data;</br>
+                    
+                    public:</br>
+                            Matrix(int r, int c) {</br>
+                            rows = r;</br>
+                            cols = c;</br>
+                            data = new int *[rows];</br>
+                            for (int i = 0; i < rows; i++) {</br></rows>
+                                data[i] = new int[cols];</br>
+                            }</br>
+                        }</br>
+                    
+                       
+                        ~Matrix() {</br>
+                            for (int i = 0; i < rows; i++) {</br></rows>
+                                delete[] data[i];</br>
+                            }</br>
+                            delete[] data;</br>
+                        }</br>
+                    
+                          void accept() {</br>
+                            cout << "Enter matrix elements:" << endl;</br>
+                            for (int i = 0; i < rows; i++) {</br></rows>
+                                for (int j = 0; j < cols; j++) {</br></cols>
+                                    cin >> data[i][j];</br>
+                                }</br>
+                            }</br>
+                        }</br>
+                    
+                      
+                        void display() {</br>
+                            cout << "Matrix elements are:" << endl;</br>
+                            for (int i = 0; i < rows; i++) {</br></rows>
+                                for (int j = 0; j < cols; j++) {</br></cols>
+                                    cout << setw(5) << data[i][j];</br>
+                                }</br>
+                                cout << endl;</br>
+                            }</br>
+                        }</br>
+                    
+                            Matrix transpose() {</br>
+                            Matrix temp(cols, rows);</br>
+                            for (int i = 0; i < rows; i++) {</br>
+                                for (int j = 0; j < cols; j++) {</br>
+                                    temp.data[j][i] = data[i][j];</br>
+                                }</br>
+                            }</br>
+                            return temp;</br>
+                        }</br>
+                    };</br>
+                    
+                    int main() {</br>
+                        int r, c;
+                        cout << "Enter the number of rows and columns of the matrix: ";</br>
+                        cin >> r >> c;</br>
+                    
+                        Matrix m1(r, c);</br>
+                        m1.accept();</br>
+                    
+                        cout << "The original matrix is:" << endl;</br>
+                        m1.display();</br>
+                    
+                        Matrix m2 = m1.transpose();</br>
+                    
+                        cout << "The transpose of the matrix is:" << endl;</br>
+                        m2.display();</br>
+                    
+                        return 0;</br>
+                    }</br>
+                </h5>
+       
+                 <h2>slip no 9.Q1(A)</h2>
+                 <h5>
+                    #include < iostream></br>
+                    #include < cstring></br>
+                    
+                    using namespace std;</br>
+                    
+                    class Person {</br>
+                      char Name[20];</br>
+                      char Addr[30];</br>
+                      float Salary;</br>
+                      float TaxAmount;</br>
+                      
+                    public:</br>
+                      
+                      Person(char name[], char addr[], float salary) {</br>
+                        strcpy(Name, name);</br>
+                        strcpy(Addr, addr);</br>
+                        Salary = salary;</br>
+                        TaxAmount = 0;</br>
+                      }</br>
+                      
+                       void calculateTax() {</br>
+                        if (Salary <= 20000) {</br>
+                          TaxAmount = 0;</br>
+                        } else if (Salary <= 40000) {</br>
+                          TaxAmount = Salary * 0.05;</br>
+                        } else {</br>
+                          TaxAmount = Salary * 0.1;</br>
+                        }</br>
+                      }</br>
+                      
+                     
+                      void displayDetails() {</br>
+                        cout << "Name: " << Name << endl;</br>
+                        cout << "Address: " << Addr << endl;</br>
+                        cout << "Salary: " << Salary << endl;</br>
+                        cout << "Tax Amount: " << TaxAmount << endl;</br>
+                      }</br>
+                    };</br>
+                    
+                    int main() {</br>
+                       Person p("John Doe", "123 Main St.", 30000);</br>
+                      
+                        p.calculateTax();</br>
+                      p.displayDetails();</br>
+                      
+                      return 0;</br>
+                    }</br>
+                </h5>
+
+                <h2>slip no 9.Q1(B)</h2>
+                <h5> 
+                    #include < iostream></br>
+                    #include < iomanip></br>
+                    
+                    using namespace std;</br>
+                    
+                    class Time {</br>
+                      int Hours;</br>
+                      int Minutes;</br>
+                      int Seconds;</br>
+                      
+                    public:</br>
+                       Time() {</br>
+                        Hours = 0;</br>
+                        Minutes = 0;</br>
+                        Seconds = 0;</br>
+                      }</br>
+                      
+                      void acceptTime() {</br>
+                        cout << "Enter time (hh:mm:ss): ";</br>
+                        char colon;</br>
+                        cin >> Hours >> colon >> Minutes >> colon >> Seconds;</br>
+                      }</br>
+                      
+                      void displayTime() {</br>
+                        cout << setfill('0') << setw(2) << Hours << ":"</br>
+                             << setw(2) << Minutes << ":" << setw(2) << Seconds << endl;</br>
+                      }</br>
+                      
+                      Time difference(Time t) {</br>
+                        Time diff;</br>
+                        int totalSeconds1 = Hours * 3600 + Minutes * 60 + Seconds;</br>
+                        int totalSeconds2 = t.Hours * 3600 + t.Minutes * 60 + t.Seconds;</br>
+                        int diffSeconds = totalSeconds1 - totalSeconds2;</br>
+                        if (diffSeconds < 0) {</br></0>
+                          diffSeconds += 24 * 3600;</br>
+                        }</br>
+                        diff.Hours = diffSeconds / 3600;</br>
+                        diffSeconds %= 3600;</br>
+                        diff.Minutes = diffSeconds / 60;</br>
+                        diffSeconds %= 60;</br>
+                        diff.Seconds = diffSeconds;</br>
+                        return diff;</br>
+                      }</br>
+                    };</br>
+                    
+                    int main() {</br>
+                      Time t1, t2;</br>
+                      
+                       cout << "Enter time 1:\n";</br>
+                      t1.acceptTime();</br>
+                      cout << "Enter time 2:\n";</br>
+                      t2.acceptTime();</br>
+                      
+                      cout << "Time 1: ";</br>
+                      t1.displayTime();</br>
+                      cout << "Time 2: ";</br>
+                      t2.displayTime();</br>
+                      
+                      Time diff = t1.difference(t2);</br>
+                      cout << "Difference: ";</br>
+                      diff.displayTime();</br>
+                      
+                      return 0;</br>
+                    }</br>
+                </h5>
+
+                <h2>slip no 10 .Q.1(A)</h2>
+                <h5>
+                    
+                    #include < iostream></br>
+
+                    using namespace std;</br>
+                    
+                    class Account {</br>
+                    private:</br>
+                        int Acc_number;</br>
+                        string Acc_type;</br>
+                        double Balance;</br>
+                    public:</br>
+                        Account() { // default constructor</br>
+                            Acc_number = 0;</br>
+                            Acc_type = "";</br>
+                            Balance = 0.0;</br>
+                        }</br>
+                        Account(int num, string type, double bal) { // parameterized constructor</br>
+                            Acc_number = num;</br>
+                            Acc_type = type;</br>
+                            Balance = bal;</br>
+                        }</br>
+                        void setAcc_number(int num) {</br>
+                            Acc_number = num;</br>
+                        }</br>
+                        int getAcc_number() {</br>
+                            return Acc_number;</br>
+                        }</br>
+                        void setAcc_type(string type) {</br>
+                            Acc_type = type;</br>
+                        }</br>
+                        string getAcc_type() {</br>
+                            return Acc_type;</br>
+                        }</br>
+                        void setBalance(double bal) {</br>
+                            Balance = bal;</br>
+                        }</br>
+                        double getBalance() {</br>
+                            return Balance;</br>
+                        }</br>
+                    };</br>
+                    
+                    int main() {</br>
+                        int n;</br>
+                        cout << "Enter the number of accounts: ";</br>
+                        cin >> n;</br>
+                        Account* accounts = new Account[n]; // create dynamic array of n accounts</br>
+                        for (int i = 0; i < n; i++) {</br></n>
+                            int num;</br>
+                            string type;</br>
+                            double bal;</br>
+                            cout << "Enter account number: ";</br>
+                            cin >> num;</br>
+                            accounts[i].setAcc_number(num);</br>
+                            cout << "Enter account type: ";</br>
+                            cin >> type;</br>
+                            accounts[i].setAcc_type(type);</br>
+                            cout << "Enter balance: ";</br>
+                            cin >> bal;</br>
+                            accounts[i].setBalance(bal);</br>
+                        }</br>
+                        cout << "Account Details:\n";</br>
+                        for (int i = 0; i < n; i++) {</br></n>
+                            cout << "Account " << i + 1 << ":\n";</br>
+                            cout << "Account Number: " << accounts[i].getAcc_number() << endl;</br>
+                            cout << "Account Type: " << accounts[i].getAcc_type() << endl;</br>
+                            cout << "Balance: " << accounts[i].getBalance() << endl;</br>
+                            cout << endl;</br>
+                        }</br>
+                        delete[] accounts; // free memory allocated for dynamic array</br>
+                        return 0;</br>
+                    }</br>
+                    </h5>
+
+                    <h2>slip no 10.Q1.(B)</h2>
+                    <h5>
+                        #include< iostream></br>
+                        #include< iomanip></br>
+                        #include< string.h></br>
+                        using namespace std;</br>
+                        
+                        class City{</br>
+                            int code, population;</br>
+                            char name[50];</br>
+                        public:</br>
+                            void accept(){</br>
+                                cout<<"Enter City Code: ";</br>
+                                cin>>code;</br>
+                                cout<<"Enter City Name: ";</br>
+                                cin.ignore();</br>
+                                cin.getline(name,50);</br>
+                                cout<<"Enter City Population: ";</br>
+                                cin>>population;</br>
+                            }</br>
+                            void display(){</br>
+                                cout<<setw(10)<<code<<setw(20)<<name<<setw(15)<<population<<endl;</br>
+                            }</br>
+                            void display(int code){</br>
+                                if(this->code==code){</br>
+                                    cout<< setw(10)<<code<< setw(20)<< name<< setw(15)<< population<< endl; </br>
+                                }</br>
+                            }</br>
+                            int get_population(){</br>
+                                return population;</br>
+                            }</br>
+                        };</br>
+                        
+                        int main(){</br>
+                            int n;
+                            cout<<"Enter number of cities: ";</br>
+                            cin>>n;</br>
+                            City* cities = new City[n];</br>
+                            for(int i=0;i< n; i++){</br></n>
+                                cout<<"\nEnter details of city "<< i+1<< endl;</br>
+                                cities[i].accept();</br>
+                            }</br>
+                            //sorting cities based on population</br>
+                            for(int i=0;i< n-1; i++){</br></n-1>
+                                for(int j=0;j< n-i-1 ;j++){</br></n-i-1>
+                                    if(cities[j].get_population()>cities[j+1].get_population()){</br>
+                                        City temp = cities[j];</br>
+                                        cities[j] = cities[j+1];</br>
+                                        cities[j+1] = temp;</br>
+                                    }</br>
+                                }</br>
+                            }</br>
+                            cout<<"\nDetails of cities in ascending order of population:" << endl;</br>
+                            cout<<setw(10)<<"City Code"<< setw(20) << "City  Name" <<setw (15) <<" Population" << endl; </br>
+                            for(int i=0;i< n;i++){</br>
+                                cities[i].display();</br>
+                            }</br>
+                            int search_code;</br>
+                            cout<<"\nEnter the city code to display details of a particular city: ";</br>
+                            cin>>search_code;</br>
+                            cout<<setw (10) << "City  Code"<<setw(20) <<"City Name"<<setw(15)<<"Population"<<endl;
+                            for(int i=0;i< n;i++){ </br>
+                                cities[i].display(search_code);</br>
+                            }</br>
+                            delete [] cities;</br>
+                            return 0;</br>
+                        }</br>
+                        </h5>
+
+                        <h2>slip no 12.Q.1.(A)</h2>
+                        <h5>
+                            #include < iostream></br>
+                            #include < string></br>
+                            
+                            using namespace std;</br>
+                            
+                            class Date {</br>
+                                int day;</br>
+                                int month;</br>
+                                int year;</br>
+                            public:</br>
+                                Date() : day(1), month(1), year(2021) { } // default constructor</br>
+                                Date(int d, int m, int y) : day(d), month(m), year(y) { } // parameterized constructor</br>
+                            
+                                string getMonthName() const </br>
+                                {</br>
+                                    switch(month) </br>
+                                    {</br>
+                                        case 1: return "Jan";</br>
+                                        case 2: return "Feb";</br>
+                                        case 3: return "Mar";</br>
+                                        case 4: return "Apr";</br>
+                                        case 5: return "May";</br>
+                                        case 6: return "Jun";</br>
+                                        case 7: return "Jul";</br>
+                                        case 8: return "Aug";</br>
+                                        case 9: return "Sep";</br>
+                                        case 10: return "Oct";</br>
+                                        case 11: return "Nov";</br>
+                                        case 12: return "Dec";</br>
+                                        default: return "";</br>
+                                    }</br>
+                                }</br>
+                            
+                                void displayDate() const {</br>
+                                    cout << day << "-" << getMonthName() << "-" << year << endl;</br>
+                                }</br>
+                            };</br>
+                            
+                            int main() {</br>
+                                Date d1; // using default constructor</br>
+                                Date d2(4, 1, 2021); // using parameterized constructor</br>
+                            
+                                d1.displayDate(); // should output: 1-Jan-2021</br>
+                                d2.displayDate(); // should output: 4-Jan-2021</br>
+                            
+                                return 0;</br>
+                            }</br>
+                            </h5>
+
+                            <h2>slip no 12.Q1.(B)</h2>
+                            <h5>
+                                #include < iostream></br>
+
+                                using namespace std;</br>
+                                
+                                class Weight {</br>
+                                    int kilogram;</br>
+                                    int gram;</br>
+                                public:</br>
+                                    Weight() : kilogram(0), gram(0) { } // default constructor</br>
+                                    Weight(int kg, int g) : kilogram(kg), gram(g) { } // parameterized constructor</br>
+                                
+                                    void acceptWeight() {</br>
+                                        cout << "Enter weight in kilogram and gram format (e.g., 2 500): ";</br>
+                                        cin >> kilogram >> gram;</br>
+                                    }</br>
+                                
+                                    void displayWeight() const {</br>
+                                        cout << "Weight: " << kilogram << " kg " << gram << " g" << endl;</br>
+                                    }</br>
+                                
+                                    Weight operator+=(const Weight& other) {</br>
+                                        kilogram += other.kilogram;</br>
+                                        gram += other.gram;</br>
+                                        if (gram >= 1000) {</br>
+                                            kilogram += gram / 1000;</br>
+                                            gram = gram % 1000;</br>
+                                        }</br>
+                                        return *this;</br>
+                                    }</br>
+                                
+                                    bool operator==(const Weight& other) const {</br>
+                                        return (kilogram == other.kilogram && gram == other.gram);</br>
+                                    }</br>
+                                };</br>
+                                
+                                int main() {</br>
+                                    Weight w1, w2, w3;</br>
+                                
+                                    w1.acceptWeight();</br>
+                                    w2.acceptWeight();</br>
+                                
+                                    w3 = w1;</br>
+                                    w3 += w2;</br>
+                                
+                                    w1.displayWeight(); // display weight 1</br>
+                                    w2.displayWeight(); // display weight 2</br>
+                                    w3.displayWeight(); // display sum of weight 1 and weight 2</br>
+                                
+                                    if (w1 == w2) {</br>
+                                        cout << "Weight 1 and weight 2 are equal." << endl;</br>
+                                    } else {</br>
+                                        cout << "Weight 1 and weight 2 are not equal." << endl;</br>
+                                    }</br>
+                                
+                                    return 0;</br>
+                                }</br>
+                                </h5>
+
+                </h4>
+        </body>
+    </head>
+</HTML>
